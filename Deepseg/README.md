@@ -1,0 +1,1 @@
+Before running this module, download the saved models from [ this ](https://dms.uom.lk/s/P94DaPaXw5YpG5s) link to Deepseg folder.
