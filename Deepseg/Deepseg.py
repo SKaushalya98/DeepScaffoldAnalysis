@@ -1,11 +1,9 @@
 # import required python packages
-import sys
 import os
-import unittest
+import sys
 import vtk, qt, ctk, slicer
 from slicer.ScriptedLoadableModule import *
 import logging
-from time import sleep
 slicer.util.pip_install("pip -U")
 try:
   import math
@@ -206,11 +204,6 @@ class DeepsegWidget(ScriptedLoadableModuleWidget):
     logic.run(self.inputSelector.currentNode(), self.outputBoneClusterSelector.currentNode(), enableScreenshotsFlag,enableWeek4VolumeFlag,enableWeek10VolumeFlag)
     
     
-    
-#
-# testLogic
-#
-
 #
 # CNNSegLogic
 #
@@ -308,12 +301,12 @@ class DeepsegLogic(ScriptedLoadableModuleLogic):
 
     # Load correct segmentation model    
     if enableWeek4Volume:
-      week4_model = 'E:/FYP/Slicer Extension/DeepScaffoldAnalysis/Deepseg/myModel_model1_v3_08_11_v2.h5'
+      week4_model = os.path.join(sys.path[0],'myModel_model1_v3_08_11_v2.h5')
       segmentation_model_week4 = load_model(week4_model)
       segmentation_model = segmentation_model_week4
       (segmentation_model).load_weights(week4_model)
     if enableWeek10Volume:
-      week10_model = 'E:/FYP/Slicer Extension/DeepScaffoldAnalysis/Deepseg/myModel_model2_v3_29_10.h5'
+      week10_model = os.path.join(sys.path[0],'myModel_model2_v3_29_10.h5')
       segmentation_model_week10 = load_model(week10_model)
       segmentation_model = segmentation_model_week10  
       (segmentation_model).load_weights(week10_model)
@@ -369,25 +362,16 @@ class DeepsegLogic(ScriptedLoadableModuleLogic):
 
       # view the segmentation output in slicer
     slicer.util.setSliceViewerLayers(background=outputBoneClusterVolume)
-    #slicer.util.setSliceViewerLayers(foreground=outputBoneClusterVolume)
-    #slicer.util.setSliceViewerLayers(foregroundOpacity=0.5)
 
       # change the tumor color space
     displayNode = outputBoneClusterVolume.GetDisplayNode()
     displayNode.SetAndObserveColorNodeID("vtkMRMLColorTableNodeLabels") #vtkMRMLColorTableNodeRainbow
-
-    
-    # slicer.util.updateVolumeFromArray(outputBoneClusterVolume,bone_label)
-    # outputBoneClusterVolume.SetOrigin(inputVolume.GetOrigin())
-    # outputBoneClusterVolume.SetSpacing(inputVolume.GetSpacing())
-    # slicer.util.setSliceViewerLayers(background=outputBoneClusterVolume,fit=True)
-
    
     stopTime = time.time()
     # Close progress bar
     progress.close()
     logging.info('Processing completed in {0:.2f} seconds'.format(stopTime-startTime))
-    
+   
 
     return True
     

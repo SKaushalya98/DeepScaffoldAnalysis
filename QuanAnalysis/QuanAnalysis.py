@@ -1,6 +1,5 @@
 # import required python packages
 import os
-import unittest
 import vtk, qt, ctk, slicer
 from slicer.ScriptedLoadableModule import *
 import logging
@@ -180,20 +179,6 @@ class QuanAnalysisWidget(ScriptedLoadableModuleWidget):
     self.outputVOISelector.setToolTip( "Pick the output to the algorithm." )
     outputsFormLayout.addRow("Extracted Volume: ", self.outputVOISelector)
 
-
-    # self.outputTransformSelector = slicer.qMRMLNodeComboBox()
-    # self.outputTransformSelector.nodeTypes = ["vtkMRMLTransformNode"]
-    # self.outputTransformSelector.selectNodeUponCreation = True
-    # self.outputTransformSelector.addEnabled = True
-    # self.outputTransformSelector.renameEnabled = True
-    # self.outputTransformSelector.removeEnabled = True
-    # self.outputTransformSelector.noneEnabled = True
-    # self.outputTransformSelector.showHidden = False
-    # self.outputTransformSelector.showChildNodeTypes = False
-    # self.outputTransformSelector.setMRMLScene( slicer.mrmlScene )
-    # self.outputTransformSelector.setToolTip( "(optional) Computed displacement field that transform nodes from moving volume space to fixed volume space. NOTE: You must set at least one output object (transform and/or output volume)." )
-    # outputsFormLayout.addRow("Output transform: ", self.outputTransformSelector)
-
     # #
     # check box to trigger taking screen shots for later use in tutorials
     #
@@ -201,10 +186,6 @@ class QuanAnalysisWidget(ScriptedLoadableModuleWidget):
     self.enableScreenshotsFlagCheckBox.checked = 0
     self.enableScreenshotsFlagCheckBox.setToolTip("If checked, take screen shots for tutorials. Use Save Data to write them to disk.")
     inputsFormLayout.addRow("Enable Screenshots", self.enableScreenshotsFlagCheckBox)
-
-    #self.segmentEditorWidget = slicer.qMRMLSegmentEditorWidget()
-    #self.segmentEditorWidget.setMRMLScene(slicer.mrmlScene)
-    #self.segmentEditorWidget.rotateSliceViewsToSegmentation()
 
     #
     # Apply Button
@@ -254,10 +235,7 @@ class QuanAnalysisWidget(ScriptedLoadableModuleWidget):
     self.imageWidget.setPixmap(pm)
     self.imageWidget.setScaledContents(True)
     self.imageWidget.show()
-#
-# testLogic
-#
-
+    
 #
 # CNNSegLogic
 #
